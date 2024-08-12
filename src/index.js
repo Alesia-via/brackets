@@ -13,9 +13,10 @@ module.exports = function check(s, bracketsConfig) {
     let stack = [];
     for (let i = 0; i < str.length; i++) {
       let currentSymbol = str[i];
-      
+      let topElement = stack[stack.length - 1];
+
        if (openBrackets.includes(currentSymbol) && bracketsPair[currentSymbol] === currentSymbol) {
-        if (stack.length > 0 && stack[stack.length - 1] === currentSymbol) {
+        if (stack.length > 0 && topElement === currentSymbol) {
           stack.pop();  
         } else {
           stack.push(currentSymbol);  
@@ -27,7 +28,7 @@ module.exports = function check(s, bracketsConfig) {
         if (stack.length === 0) {
           return false;
         }
-        let topElement = stack[stack.length - 1];
+        
         if (bracketsPair[currentSymbol] === topElement) {
           stack.pop();
         }
